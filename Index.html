@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Huastecos FC - Oficial</title>
+<link rel="icon" href="logo.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:100vh}
+.header{background:linear-gradient(135deg,#0a1e4a 0%,#123a8a 50%,#0a1e4a 100%);border-bottom:3px solid #D4AF37;padding:10px 14px;position:sticky;top:0;z-index:100}
+.header-top{display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:1400px;margin:0 auto}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-img{width:48px;height:58px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(212,175,55,.8))}
+.title-block h1{font-family:'Bebas Neue';font-size:26px;color:#D4AF37;letter-spacing:1px}
+.title-block p{font-size:9px;color:#8fb0f0;text-transform:uppercase;letter-spacing:1px}
+.btn{border:none;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;font-size:13px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px;touch-action:manipulation}
+.btn-gold{background:linear-gradient(135deg,#D4AF37,#b8860b);color:#0a1e4a;box-shadow:0 2px 10px rgba(212,175,55,.3)}
+.btn-ghost{background:#0f1d3a;color:#D4AF37;border:1px solid #1e3a7a}
+.btn-blue{background:linear-gradient(135deg,#123a8a,#1e4ac7);color:#fff;border:1px solid #2a5bd7}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px 12px;background:#0a1430;border-bottom:1px solid #1e3a7a;position:sticky;top:62px;z-index:90}
+.stat-card{background:#0f1d3a;border:1px solid #1e3a7a;border-radius:10px;padding:8px;text-align:center}
+.stat-label{font-size:8px;color:#8fb0f0;text-transform:uppercase;font-weight:600}
+.stat-value{font-size:18px;font-weight:800;color:#fff;font-family:'Bebas Neue'}
+.stat-value.gold{color:#D4AF37}
+.tabs{display:flex;gap:6px;padding:8px 12px;background:#070f24;border-bottom:1px solid #1e3a7a;overflow-x:auto;white-space:nowrap;position:sticky;top:112px;z-index:80}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 14px;border-radius:999px;border:1px solid #1e3a7a;background:#0f1d3a;color:#8fb0f0;cursor:pointer;font-size:12px;font-weight:700;flex-shrink:0}
+.tab.active{background:linear-gradient(135deg,#D4AF37,#b8860b);color:#0a1e4a;border-color:#D4AF37}
+.container{max-width:1400px;margin:0 auto;padding:10px}
+.card{background:linear-gradient(145deg,#0d1a36,#11224a);border:1px solid #1e3a7a;border-radius:14px;padding:12px;margin-bottom:10px}
+.card h3{font-family:'Bebas Neue';font-size:16px;color:#D4AF37;margin-bottom:8px}
+.matrix-wrap{overflow-x:auto;border:1px solid #1e3a7a;border-radius:12px;background:#0a1430;-webkit-overflow-scrolling:touch}
+.matrix-wrap::-webkit-scrollbar{height:8px}
+.matrix-wrap::-webkit-scrollbar-thumb{background:#D4AF37;border-radius:4px}
+.matrix-table{border-collapse:collapse;font-size:11px;min-width:720px;width:100%}
+.matrix-table th{position:sticky;top:0;background:#0f1d3a;color:#D4AF37;padding:8px 4px;text-align:center;font-size:9px;z-index:2;border-bottom:2px solid #D4AF37;min-width:56px}
+.matrix-table th:first-child{left:0;z-index:3;min-width:120px;text-align:left;padding-left:8px}
+.matrix-table td{padding:8px 4px;text-align:center;border-top:1px solid #122a5a}
+.matrix-table td:first-child{position:sticky;left:0;background:#0d1a36;z-index:1;text-align:left;padding-left:8px;font-weight:600;min-width:120px;box-shadow:2px 0 6px rgba(0,0,0,.4)}
+.dot{width:22px;height:22px;border-radius:50%;display:inline-block;cursor:pointer;border:1px solid}
+.dot.green{background:radial-gradient(circle at 30% 30%,#4ade80,#16a34a);border-color:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.6)}
+.dot.red{background:radial-gradient(circle at 30% 30%,#f87171,#dc2626);border-color:#ef4444;box-shadow:0 0 8px rgba(220,38,38,.6)}
+.pos-badge{font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid}
+.pos-POR{background:#0a1e4a;color:#93c5fd;border-color:#1e40af}.pos-DEF{background:#0a3a2a;color:#bbf7d0;border-color:#16a34a}.pos-MED{background:#3a2a0a;color:#fde68a;border-color:#a16207}.pos-DEL{background:#4a0f0f;color:#fca5a5;border-color:#dc2626}
+.modal-overlay{position:fixed;inset:0;background:rgba(3,8,24,.85);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:200;padding:12px}
+.modal-overlay.show{display:flex}
+.modal{background:linear-gradient(145deg,#0d1a36,#122a5a);border:2px solid #D4AF37;border-radius:18px;max-width:500px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.modal-header{padding:16px 16px 0 16px;display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:'Bebas Neue';font-size:20px;color:#D4AF37}
+.modal-close{background:#1a2a5a;border:1px solid #1e3a7a;color:#8fb0f0;border-radius:999px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.modal-body{padding:16px}
+.form-group{margin-bottom:12px}.form-group label{font-size:10px;color:#D4AF37;display:block;margin-bottom:4px;font-weight:700;text-transform:uppercase}
+.form-group input,.form-group select{width:100%;background:#070f24;border:1px solid #1e3a7a;border-radius:10px;padding:12px;color:#eaf1ff;font-size:16px;min-height:44px}
+@media (max-width:768px){
+  .stats-bar{grid-template-columns:repeat(2,1fr);top:58px}
+  .tabs{top:132px}
+  .grid-pagos{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="header-top">
+<div class="logo-wrap">
+<img src="logo.png" class="logo-img" alt="Huastecos FC">
+<div class="title-block"><h1>HUASTECOS FC</h1><p>Azul y oro • Plataforma oficial • Desde 18/10/26</p></div>
+</div>
+<button class="btn btn-gold" style="padding:8px 12px;min-height:36px" onclick="openModal('addPlayer')">➕ Nuevo</button>
+</div>
+</div>
+
+<div class="stats-bar" id="statsBar"></div>
+
+<div class="tabs">
+<div class="tab active" data-tab="pagos" onclick="switchTab('pagos')">💰 Pagos</div>
+<div class="tab" data-tab="partidos" onclick="switchTab('partidos')">📅 Partidos</div>
+<div class="tab" data-tab="jugadores" onclick="switchTab('jugadores')">👥 Plantilla</div>
+<div class="tab" data-tab="tabla" onclick="switchTab('tabla')">📊 Estadísticas</div>
+</div>
+
+<div class="container">
+<div id="view-pagos">
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+<button class="btn btn-gold" onclick="openModal('addPago')">💰 Registrar Pago</button>
+<button class="btn btn-blue" onclick="openModal('addPlayer')">👥 Agregar Huasteco</button>
+<!-- Sheets conectado automáticamente en background -->
+</div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+<h3>📅 Control de Pagos - Domingos</h3>
+<span style="font-size:9px;background:#0a1430;border:1px solid #1e3a7a;padding:4px 8px;border-radius:999px">🟢 Pagado • 🔴 Debe</span>
+</div>
+<p style="font-size:10px;color:#8fb0f0;margin-bottom:8px">Arriba fijo, abajo se mueve • Desde domingo 18/10/26 • Todos los domingos • 4 partidos por adelantado</p>
+<div class="matrix-wrap" id="matrizWrap"></div>
+</div>
+<div class="card"><h3>Últimos pagos</h3><div id="pagosList"></div></div>
+</div>
+
+<div id="view-partidos" style="display:none">
+<div style="display:flex;gap:8px;margin-bottom:10px"><button class="btn btn-gold" style="flex:1" onclick="openModal('addMatch')">➕ Registrar Partido del Domingo</button></div>
+<div class="card"><h3>Historial de Partidos</h3><div id="matchesList"></div></div>
+</div>
+
+<div id="view-jugadores" style="display:none">
+<div style="display:flex;gap:8px;margin-bottom:10px"><button class="btn btn-gold" style="flex:1" onclick="openModal('addPlayer')">➕ Agregar Huasteco</button></div>
+<div class="card"><div id="playersList"></div></div>
+</div>
+
+<div id="view-tabla" style="display:none"><div class="card"><h3>Estadísticas Huastecos FC</h3><div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:12px"><thead><tr><th>Jugador</th><th>Pos</th><th>PJ</th><th>Goles</th><th>Asist</th></tr></thead><tbody id="tablaBody"></tbody></table></div></div></div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+<div class="modal" id="modalBox">
+<div class="modal-header"><div class="modal-title" id="modalTitle">Huastecos FC</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body" id="modalBody"></div>
+</div>
+</div>
+
+<script>
+// CONFIGURACIÓN SHEETS - Pega aquí tu URL de Apps Script después de desplegar
+const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec';
+// URL integrada de Apps Script Huastecos FC - Azul y Oro - Desde 18/10/26
+// localStorage opcional para override: 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec' || 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec'
+
+let jugadores=JSON.parse(localStorage.getItem('huastecos_jugadores_v2')||'[]');
+let partidos=JSON.parse(localStorage.getItem('huastecos_partidos_v2')||'[]');
+let pagos=JSON.parse(localStorage.getItem('huastecos_pagos')||'[]');
+const START_DATE = new Date('2026-10-18T12:00:00');
+let numDomingos=20;
+
+function save(){
+  localStorage.setItem('huastecos_jugadores_v2',JSON.stringify(jugadores));
+  localStorage.setItem('huastecos_partidos_v2',JSON.stringify(partidos));
+  localStorage.setItem('huastecos_pagos',JSON.stringify(pagos));
+  // Sincronizar con Google Sheets si está configurado
+  if(SHEETS_API_URL) syncToSheets();
+}
+
+async function syncToSheets(){
+  if(!SHEETS_API_URL) return;
+  try{
+    await fetch(SHEETS_API_URL,{
+      method:'POST',
+      mode:'no-cors',
+      body:JSON.stringify({action:'syncAll', jugadores, partidos, pagos})
+    });
+  }catch(e){console.log('Sheets sync pendiente:', e.message);}
+}
+
+async function loadFromSheets(){
+  if(!SHEETS_API_URL) return;
+  try{
+    const res = await fetch(SHEETS_API_URL);
+    const data = await res.json();
+    if(data.jugadores) {jugadores=data.jugadores; partidos=data.partidos||[]; pagos=data.pagos||[]; save(); renderAll();}
+  }catch(e){console.log('Sin datos en Sheets aún');}
+}
+
+function getDomingos(n){const arr=[];for(let i=0;i<n;i++){const d=new Date(START_DATE);d.setDate(START_DATE.getDate()+i*7);arr.push(d);}return arr;}
+function fmt(d){return d.toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit'});}
+function fmtLong(d){return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'2-digit'});}
+function calcularEstado(jugadorId){const pjs = pagos.filter(p=>p.jugadorId===jugadorId);return {total:pjs.reduce((s,p)=>s+p.cantidad,0)}};
+
+function openModal(type, data=null){
+  const overlay=document.getElementById('modalOverlay');
+  const title=document.getElementById('modalTitle');
+  const body=document.getElementById('modalBody');
+  let html='';
+  if(type==='addPlayer'){
+    title.textContent='Agregar Huasteco';
+    html=`<div class="form-group"><label>Nombre completo</label><input id="m_jNombre" placeholder="Ej: Carlos López"></div>
+    <div class="form-group"><label>Dorsal</label><input id="m_jDorsal" type="number" inputmode="numeric" placeholder="10"></div>
+    <div class="form-group"><label>Posición - Lista desplegable</label>
+    <select id="m_jPos" style="border:2px solid #D4AF37;padding:14px;font-size:16px">
+    <option value="">-- Selecciona posición --</option>
+    <option value="POR">🧤 POR - Portero</option>
+    <option value="DEF-CEN">🛡️ DEF - Central</option>
+    <option value="DEF-LAT-D">🛡️ DEF - Lateral Derecho</option>
+    <option value="DEF-LAT-I">🛡️ DEF - Lateral Izquierdo</option>
+    <option value="MED-DEF">⚙️ MED - Contención</option>
+    <option value="MED-CEN">⚙️ MED - Centro</option>
+    <option value="MED-OFE">⚙️ MED - Ofensivo / 10</option>
+    <option value="DEL-EXT-D">🎯 DEL - Extremo Derecho</option>
+    <option value="DEL-EXT-I">🎯 DEL - Extremo Izquierdo</option>
+    <option value="DEL-CEN">🎯 DEL - Centro / 9</option>
+    </select></div>
+    <button class="btn btn-gold" style="width:100%;margin-top:10px" onclick="confirmAddPlayer()">✅ Agregar a Huastecos</button>`;
+  }
+  else if(type==='addPago'){
+    const opts=jugadores.map(j=>`<option value="${j.id}">#${j.dorsal} ${j.nombre} (${j.pos})</option>`).join('');
+    title.textContent='Registrar Pago - 4 partidos';
+    html=`<div class="form-group"><label>Huasteco</label><select id="m_pJugador">${opts||'<option>Primero agrega huastecos</option>'}</select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="form-group"><label>Cantidad de partidos</label><select id="m_pCantidad"><option value="4" selected>4 partidos</option><option value="1">1</option><option value="2">2</option><option value="8">8</option></select></div>
+    <div class="form-group"><label>Monto $ (opcional)</label><input id="m_pMonto" type="number" inputmode="numeric" placeholder="200"></div>
+    </div>
+    <div class="form-group"><label>Fecha de pago</label><input type="date" id="m_pFecha" value="${new Date().toISOString().slice(0,10)}"></div>
+    <button class="btn btn-gold" style="width:100%" onclick="confirmAddPago()">💛 Registrar Pago</button>`;
+  }
+  else if(type==='addMatch'){
+    title.textContent='Registrar Partido';
+    html=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="form-group"><label>Fecha domingo</label><input type="date" id="m_mFecha" value="2026-10-18"></div>
+    <div class="form-group"><label>Rival</label><input id="m_mRival" placeholder="Halcones FC"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="form-group"><label>Goles Huastecos</label><input type="number" id="m_mGF" value="0" inputmode="numeric"></div>
+    <div class="form-group"><label>Goles contra</label><input type="number" id="m_mGC" value="0" inputmode="numeric"></div>
+    </div>
+    <button class="btn btn-gold" style="width:100%" onclick="confirmAddMatch()">💙 Guardar Partido</button>`;
+  }
+  else if(type==='celdaPago'){
+    const j=jugadores.find(x=>x.id===data.jugadorId);
+    const d=new Date(data.fecha);
+    const pagado=data.pagado;
+    title.textContent=`${j.nombre} - ${fmtLong(d)}`;
+    html=`<div style="text-align:center;padding:10px">
+    <div style="font-size:48px;margin:10px 0">${pagado?'🟢':'🔴'}</div>
+    <div style="font-weight:800;font-size:16px">${pagado?'PAGADO':'NO PAGADO'}</div>
+    <div style="font-size:12px;color:#8fb0f0;margin-top:6px">Jornada ${data.jornada} • ${fmtLong(d)} • ${j.pos} #${j.dorsal}</div>
+    <div style="margin-top:12px;background:#070f24;border:1px solid #1e3a7a;border-radius:10px;padding:10px;text-align:left">
+    <div style="font-size:11px"><b>Huasteco:</b> ${j.nombre}<br><b>Total pagado:</b> ${calcularEstado(j.id).total} partidos<br><b>Estado:</b> ${pagado?'✅ Al día':'❌ Debe'}</div>
+    </div>
+    ${!pagado?`<button class="btn btn-gold" style="width:100%;margin-top:12px" onclick="openModal('addPago')">💰 Registrar pago</button>`:''}
+    </div>`;
+  }
+  body.innerHTML=html;
+  overlay.classList.add('show');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show');}
+// Sheets ya está integrado automáticamente - no se necesita configuración manual
+function confirmAddPlayer(){const n=document.getElementById('m_jNombre').value.trim(),d=document.getElementById('m_jDorsal').value||'?',p=document.getElementById('m_jPos').value;if(!n||!p){alert('Nombre y posición');return;}jugadores.push({id:Date.now().toString(),nombre:n,dorsal:d,pos:p});save();closeModal();renderAll();}
+function confirmAddPago(){const jugadorId=document.getElementById('m_pJugador').value,cantidad=parseInt(document.getElementById('m_pCantidad').value)||4,monto=document.getElementById('m_pMonto').value,fecha=document.getElementById('m_pFecha').value||new Date().toISOString().slice(0,10);if(!jugadorId){alert('Selecciona huasteco');return;}pagos.push({id:Date.now().toString(),jugadorId,cantidad,monto,fecha});save();closeModal();renderAll();}
+function confirmAddMatch(){const f=document.getElementById('m_mFecha').value||new Date().toISOString().slice(0,10),r=document.getElementById('m_mRival').value.trim()||'Rival',gf=parseInt(document.getElementById('m_mGF').value)||0,gc=parseInt(document.getElementById('m_mGC').value)||0;partidos.unshift({id:Date.now().toString(),fecha:f,rival:r,gf,gc,puntos:gf>gc?3:gf==gc?1:0,resultado:gf>gc?'V':gf==gc?'E':'D',actuaciones:[]});save();closeModal();renderAll();}
+function renderBar(){const pj=partidos.length, pts=partidos.reduce((s,p)=>s+p.puntos,0), totalPagos=pagos.reduce((s,p)=>s+p.cantidad,0);document.getElementById('statsBar').innerHTML=`<div class="stat-card"><div class="stat-label">Puntos</div><div class="stat-value gold">${pts}</div></div><div class="stat-card"><div class="stat-label">Partidos</div><div class="stat-value">${pj||0}</div></div><div class="stat-card"><div class="stat-label">Huastecos</div><div class="stat-value">${jugadores.length}</div></div><div class="stat-card"><div class="stat-label">Partidos Pagados</div><div class="stat-value gold">${totalPagos}</div></div>`;}
+function renderMatriz(){
+  const domingos=getDomingos(numDomingos);
+  const header=`<thead><tr><th>Huasteco / Fecha</th>`+domingos.map((d,i)=>`<th>${fmt(d)}<br><span style="font-size:8px;color:#8fb0f0">J${i+1}</span></th>`).join('')+`<th>Total</th></tr></thead>`;
+  let rows='';
+  jugadores.forEach(j=>{
+    const total=calcularEstado(j.id).total;
+    let cells='';
+    domingos.forEach((d,idx)=>{
+      const pagado=total >= idx+1;
+      cells+=`<td onclick="openModal('celdaPago',{jugadorId:'${j.id}',fecha:'${d.toISOString()}',pagado:${pagado},jornada:${idx+1}})"><span class="dot ${pagado?'green':'red'}"></span></td>`;
+    });
+    rows+=`<tr><td><span class="pos-badge pos-${j.pos.split('-')[0]}">${j.pos.split('-')[0]}</span> #${j.dorsal} ${j.nombre.split(' ')[0]}</td>${cells}<td><b style="color:${total>0?'#4ade80':'#f87171'}">${total}</b></td></tr>`;
+  });
+  if(!jugadores.length) rows='<tr><td colspan="100%" style="padding:20px;text-align:center;color:#8fb0f0">Agrega huastecos para ver control de pagos</td></tr>';
+  document.getElementById('matrizWrap').innerHTML=`<table class="matrix-table">${header}<tbody>${rows}</tbody></table>`;
+}
+function renderPagos(){
+  const c=document.getElementById('pagosList');
+  if(!pagos.length){c.innerHTML='<div style="color:#8fb0f0;font-size:11px">Sin pagos registrados. Cada huasteco paga 4 partidos por adelantado desde 18/10/26</div>';return;}
+  c.innerHTML=[...pagos].sort((a,b)=>new Date(b.fecha)-new Date(a.fecha)).slice(0,15).map(p=>{
+    const j=jugadores.find(x=>x.id===p.jugadorId);
+    return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #122a5a;font-size:11px"><span><b>${j?.nombre?.split(' ')[0]||'?'}</b> • ${p.cantidad} partidos • ${p.fecha} ${p.monto?'$'+p.monto:''}</span><button onclick="pagos=pagos.filter(x=>x.id!=='${p.id}');save();renderAll()" style="background:#4a0f0f;color:#fca5a5;border:none;border-radius:6px;padding:4px 8px">x</button></div>`;
+  }).join('');
+}
+function renderMatches(){document.getElementById('matchesList').innerHTML=partidos.map(p=>`<div style="padding:10px 0;border-bottom:1px solid #122a5a;display:flex;justify-content:space-between"><span>${p.fecha} vs ${p.rival} <b>${p.gf}-${p.gc}</b></span><span>${p.puntos} pts</span></div>`).join('')||'<div style="color:#8fb0f0;text-align:center;padding:12px">Sin partidos</div>';}
+function renderPlayers(){document.getElementById('playersList').innerHTML=jugadores.map(j=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #122a5a;align-items:center"><span><span class="pos-badge pos-${j.pos.split('-')[0]}">${j.pos.split('-')[0]}</span> #${j.dorsal} ${j.nombre}</span><button onclick="jugadores=jugadores.filter(x=>x.id!=='${j.id}');save();renderAll()" style="background:#4a0f0f;color:#fca5a5;border-radius:6px;padding:6px 10px;border:1px solid #5a2a2a">x</button></div>`).join('')||'<div style="color:#8fb0f0">Sin huastecos</div>';}
+function renderTabla(){const st=jugadores.map(j=>({nombre:j.nombre,pos:j.pos,pj:0,goles:0}));document.getElementById('tablaBody').innerHTML=st.map(s=>`<tr><td style="padding:10px">${s.nombre.split(' ')[0]}</td><td><span class="pos-badge pos-${s.pos.split('-')[0]}">${s.pos.split('-')[0]}</span></td><td>0</td><td>0</td><td>0</td></tr>`).join('')||'<tr><td colspan=5 style="text-align:center;padding:20px;color:#8fb0f0">Sin datos</td></tr>';}
+function switchTab(t){document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('active',e.dataset.tab===t));['pagos','partidos','jugadores','tabla'].forEach(id=>{document.getElementById('view-'+id).style.display=id===t?'block':'none';});}
+function renderAll(){renderBar();renderMatriz();renderPagos();renderMatches();renderPlayers();renderTabla();}
+renderAll();
+// Conexión automática a Sheets en segundo plano
+if(SHEETS_API_URL) { loadFromSheets(); }
+
+</script>
+</body>
+</html>
