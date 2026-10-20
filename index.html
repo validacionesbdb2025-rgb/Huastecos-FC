@@ -120,7 +120,9 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 
 <script>
 // CONFIGURACIÓN SHEETS - Pega aquí tu URL de Apps Script después de desplegar
-const SHEETS_API_URL = localStorage.getItem('huastecos_sheets_url') || '';
+const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec';
+// URL integrada de Apps Script Huastecos FC - Azul y Oro - Desde 18/10/26
+// localStorage opcional para override: 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec' /* + (localStorage.getItem('huastecos_sheets_url')||'') */ || 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec'
 
 let jugadores=JSON.parse(localStorage.getItem('huastecos_jugadores_v2')||'[]');
 let partidos=JSON.parse(localStorage.getItem('huastecos_partidos_v2')||'[]');
@@ -227,7 +229,7 @@ function openModal(type, data=null){
   else if(type==='configSheets'){
     title.textContent='Conectar Google Sheets';
     html=`<p style="font-size:11px;color:#8fb0f0;margin-bottom:12px">Conecta tu plataforma a Google Sheets para guardar todo en la nube. Los datos se sincronizan automáticamente.</p>
-    <div class="form-group"><label>URL de tu Web App de Apps Script</label><input id="m_sheetsUrl" placeholder="https://script.google.com/macros/s/.../exec" value="${SHEETS_API_URL}"></div>
+    <div class="form-group"><label>URL de tu Web App de Apps Script</label><input id="m_sheetsUrl" placeholder="https://script.google.com/macros/s/.../exec" value="https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec"></div>
     <div style="background:#070f24;border:1px solid #1e3a7a;border-radius:10px;padding:10px;margin-bottom:10px;font-size:10px;color:#8fb0f0">
     <b style="color:#D4AF37">Pasos para configurar:</b><br>
     1. Crea una Hoja de Cálculo en Google Sheets<br>
@@ -278,7 +280,9 @@ function renderTabla(){const st=jugadores.map(j=>({nombre:j.nombre,pos:j.pos,pj:
 function switchTab(t){document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('active',e.dataset.tab===t));['pagos','partidos','jugadores','tabla'].forEach(id=>{document.getElementById('view-'+id).style.display=id===t?'block':'none';});}
 function renderAll(){renderBar();renderMatriz();renderPagos();renderMatches();renderPlayers();renderTabla();}
 renderAll();
+localStorage.setItem('huastecos_sheets_url', 'https://script.google.com/macros/s/AKfycbxDdC421hE6nph4nxG3URcCT07_dXSFqphgoU1adAlAQByM5F0EMzTDHGTPLFW0WKpqKg/exec');
 if(SHEETS_API_URL) loadFromSheets();
+console.log('Huastecos FC conectado a Sheets:', SHEETS_API_URL);
 </script>
 </body>
 </html>
