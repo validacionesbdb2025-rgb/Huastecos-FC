@@ -59,24 +59,32 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 .goles-row .jug-info{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .goles-row input[type="number"]{width:36px;height:32px;padding:4px;font-size:13px;text-align:center;background:#0f1d3a;border:1px solid #1e3a7a;border-radius:8px;color:#eaf1ff}
 .goles-row input[type="checkbox"]{width:18px;height:18px;justify-self:center;accent-color:#D4AF37}
-/* TABLA ESTADISTICA ALINEADA */
-.tabla-stats{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
-.tabla-stats th{padding:10px 6px;text-align:center;font-size:9px;color:#D4AF37;background:#0f1d3a;border-bottom:2px solid #D4AF37;font-weight:800;vertical-align:middle}
-.tabla-stats th:nth-child(1){width:52px;text-align:center}
-.tabla-stats th:nth-child(2){width:36%;text-align:left;padding-left:10px}
-.tabla-stats th:nth-child(3){width:56px}
-.tabla-stats th:nth-child(n+4){width:44px}
-.tabla-stats td{padding:10px 6px;text-align:center;vertical-align:middle;border-top:1px solid #122a5a;height:44px}
-.tabla-stats td:nth-child(2){text-align:left;padding-left:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* TABLA ESTADISTICA OPTIMIZADA PARA CELULAR */
+.tabla-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #1e3a7a;border-radius:12px;background:#0a1430}
+.tabla-stats{width:100%;border-collapse:collapse;font-size:11px;min-width:640px;table-layout:fixed}
+.tabla-stats th{padding:12px 6px;text-align:center;font-size:9px;color:#D4AF37;background:#0f1d3a;border-bottom:2px solid #D4AF37;font-weight:800;vertical-align:middle;white-space:nowrap}
+.tabla-stats th:nth-child(1){width:56px;text-align:center}
+.tabla-stats th:nth-child(2){width:38%;text-align:left;padding-left:12px}
+.tabla-stats th:nth-child(3){width:60px}
+.tabla-stats th:nth-child(n+4){width:48px}
+.tabla-stats td{padding:12px 6px;text-align:center;vertical-align:middle;border-top:1px solid #122a5a;height:48px}
+.tabla-stats td:nth-child(2){text-align:left;padding-left:12px;font-weight:600;white-space:normal;word-break:break-word;line-height:1.2}
 .tabla-stats tr:hover td{background:#0f1d3a}
+
 @media (max-width:768px){
   .stats-bar{grid-template-columns:repeat(2,1fr);top:58px}
   .tabs{top:132px}
   .goles-header{grid-template-columns:1fr 32px 32px 32px 32px 32px}
   .goles-row{grid-template-columns:1fr 32px 32px 32px 32px 32px}
   .goles-row input[type="number"]{width:32px;height:30px;font-size:12px}
-  .tabla-stats{font-size:10px}
-  .tabla-stats th:nth-child(2){width:32%}
+  /* En celular, tabla con scroll horizontal y nombres completos visibles */
+  .tabla-wrapper{margin:0 -4px;border-radius:10px}
+  .tabla-stats{min-width:600px;font-size:11px}
+  .tabla-stats th:nth-child(2){width:42%;font-size:10px}
+  .tabla-stats td:nth-child(2){font-size:12px;white-space:normal;word-wrap:break-word}
+  .tabla-stats td{padding:10px 4px;height:50px}
+  .num-badge{min-width:38px;height:20px;font-size:11px}
 }
 </style>
 </head>
@@ -85,7 +93,7 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 <div class="header-top">
 <div class="logo-wrap">
 <img src="logo.png" class="logo-img" alt="Huastecos FC">
-<div class="title-block"><h1>HUASTECOS FC</h1><p>Dejate de puterias • Temporada 2026</p></div>
+<div class="title-block"><h1>HUASTECOS FC</h1><p>Azul y oro • Temporada 2026</p></div>
 </div>
 <button class="btn btn-gold" style="padding:8px 12px;min-height:36px" onclick="openModal('addPlayer')">➕ Jugador</button>
 </div>
@@ -102,25 +110,26 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 
 <div class="container">
 <div id="view-tabla">
-<div class="help-box">💡 <b>Estadística:</b> Goles, asistencias, partidos jugados y tarjetas de cada jugador con su número y nombre completo.</div>
+<div class="help-box">💡 <b>Estadística:</b> Desliza la tabla a los lados para ver nombre completo. Goles, asistencias, partidos jugados y tarjetas.</div>
 <div class="card"><h3>Tabla de Goleo y Tarjetas</h3>
-<div style="overflow:auto"><table class="tabla-stats"><thead><tr><th>#</th><th>Jugador</th><th>Pos</th><th>PJ</th><th>⚽</th><th>🎯</th><th>🟨</th><th>🟥</th></tr></thead><tbody id="tablaBody"></tbody></table></div>
+<div class="tabla-wrapper"><table class="tabla-stats"><thead><tr><th>#</th><th>Jugador</th><th>Pos</th><th>PJ</th><th>⚽</th><th>🎯</th><th>🟨</th><th>🟥</th></tr></thead><tbody id="tablaBody"></tbody></table></div>
+<div class="help-box" style="margin-top:8px">👆 Desliza horizontal para ver nombres completos sin cortes.</div>
 </div></div>
 
 <div id="view-jugadores" style="display:none">
-<div class="help-box">💡 <b>Plantilla:</b> Jugadores con nombre completo, número y posición. Toca un jugador para ver sus números.</div>
+<div class="help-box">💡 <b>Plantilla:</b> Jugadores con nombre completo, número y posición.</div>
 <div style="display:flex;gap:8px;margin-bottom:10px"><button class="btn btn-gold" style="flex:1" onclick="openModal('addPlayer')">➕ Agregar Jugador</button></div>
 <div class="card"><h3>Jugadores del Equipo</h3><div id="playersList"></div></div>
 </div>
 
 <div id="view-partidos" style="display:none">
-<div class="help-box">💡 <b>Partidos:</b> Registra cada domingo. Luego toca <b>Anotar Goles</b> para poner partidos jugados, goles, asistencias y tarjetas.</div>
+<div class="help-box">💡 <b>Partidos:</b> Registra cada domingo. Luego toca <b>Anotar Goles</b> para PJ, goles, asistencias y tarjetas.</div>
 <div style="display:flex;gap:8px;margin-bottom:10px"><button class="btn btn-gold" style="flex:1" onclick="openModal('addMatch')">➕ Nuevo Partido</button></div>
 <div class="card"><h3>Historial de Partidos</h3><div id="matchesList"></div></div>
 </div>
 
 <div id="view-pagos" style="display:none">
-<div class="help-box">💡 <b>Pago:</b> Toca <b>Registrar Pago</b> para anotar quién pagó. Cada pago cubre 4 domingos. Arriba ves cuántos jugadores ya pagaron.</div>
+<div class="help-box">💡 <b>Pago:</b> Toca <b>Registrar Pago</b> para anotar quién pagó. Cada pago cubre 4 domingos.</div>
 <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
 <button class="btn btn-gold" onclick="openModal('addPago')">💰 Registrar Pago</button>
 <button class="btn btn-blue" onclick="openModal('addPlayer')">👥 Agregar Jugador</button>
