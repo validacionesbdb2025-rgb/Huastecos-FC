@@ -42,9 +42,9 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 .dot{width:22px;height:22px;border-radius:50%;display:inline-block;cursor:pointer;border:1px solid}
 .dot.green{background:radial-gradient(circle at 30% 30%,#4ade80,#16a34a);border-color:#22c55e}
 .dot.red{background:radial-gradient(circle at 30% 30%,#f87171,#dc2626);border-color:#ef4444}
-.pos-badge{font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid}
+.pos-badge{font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid;display:inline-flex;align-items:center;justify-content:center;height:18px}
 .pos-POR{background:#0a1e4a;color:#93c5fd;border-color:#1e40af}.pos-DEF{background:#0a3a2a;color:#bbf7d0;border-color:#16a34a}.pos-MED{background:#3a2a0a;color:#fde68a;border-color:#a16207}.pos-DEL{background:#4a0f0f;color:#fca5a5;border-color:#dc2626}
-.num-badge{background:#D4AF37;color:#0a1e4a;font-weight:900;padding:2px 6px;border-radius:999px;font-size:10px;margin-right:4px}
+.num-badge{background:#D4AF37;color:#0a1e4a;font-weight:900;padding:2px 6px;border-radius:999px;font-size:10px;margin-right:4px;display:inline-flex;align-items:center;justify-content:center;height:18px;min-width:32px}
 .modal-overlay{position:fixed;inset:0;background:rgba(3,8,24,.85);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:200;padding:12px}
 .modal-overlay.show{display:flex}
 .modal{background:linear-gradient(145deg,#0d1a36,#122a5a);border:2px solid #D4AF37;border-radius:18px;max-width:620px;width:100%;max-height:92vh;overflow:auto}
@@ -54,17 +54,29 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 .modal-body{padding:16px}
 .form-group{margin-bottom:12px}.form-group label{font-size:10px;color:#D4AF37;display:block;margin-bottom:4px;font-weight:700;text-transform:uppercase}
 .form-group input,.form-group select{width:100%;background:#070f24;border:1px solid #1e3a7a;border-radius:10px;padding:12px;color:#eaf1ff;font-size:16px;min-height:44px}
-.goles-header{display:grid;grid-template-columns:1fr 36px 36px 36px 36px 36px;gap:6px;padding:6px 8px;font-size:9px;color:#D4AF37;font-weight:800;text-transform:uppercase;align-items:center}
-.goles-row{display:grid;grid-template-columns:1fr 36px 36px 36px 36px 36px;gap:6px;align-items:center;background:#070f24;border:1px solid #1e3a7a;border-radius:10px;padding:6px 8px;margin-bottom:6px}
+.goles-header{display:grid;grid-template-columns:1fr 36px 36px 36px 36px 36px;gap:6px;padding:8px;font-size:9px;color:#D4AF37;font-weight:800;text-transform:uppercase;align-items:center;background:#0a1430;border-radius:8px;margin-bottom:6px}
+.goles-row{display:grid;grid-template-columns:1fr 36px 36px 36px 36px 36px;gap:6px;align-items:center;background:#070f24;border:1px solid #1e3a7a;border-radius:10px;padding:6px 8px;margin-bottom:6px;min-height:44px}
 .goles-row .jug-info{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .goles-row input[type="number"]{width:36px;height:32px;padding:4px;font-size:13px;text-align:center;background:#0f1d3a;border:1px solid #1e3a7a;border-radius:8px;color:#eaf1ff}
 .goles-row input[type="checkbox"]{width:18px;height:18px;justify-self:center;accent-color:#D4AF37}
+/* TABLA ESTADISTICA ALINEADA */
+.tabla-stats{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.tabla-stats th{padding:10px 6px;text-align:center;font-size:9px;color:#D4AF37;background:#0f1d3a;border-bottom:2px solid #D4AF37;font-weight:800;vertical-align:middle}
+.tabla-stats th:nth-child(1){width:52px;text-align:center}
+.tabla-stats th:nth-child(2){width:36%;text-align:left;padding-left:10px}
+.tabla-stats th:nth-child(3){width:56px}
+.tabla-stats th:nth-child(n+4){width:44px}
+.tabla-stats td{padding:10px 6px;text-align:center;vertical-align:middle;border-top:1px solid #122a5a;height:44px}
+.tabla-stats td:nth-child(2){text-align:left;padding-left:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabla-stats tr:hover td{background:#0f1d3a}
 @media (max-width:768px){
   .stats-bar{grid-template-columns:repeat(2,1fr);top:58px}
   .tabs{top:132px}
   .goles-header{grid-template-columns:1fr 32px 32px 32px 32px 32px}
   .goles-row{grid-template-columns:1fr 32px 32px 32px 32px 32px}
   .goles-row input[type="number"]{width:32px;height:30px;font-size:12px}
+  .tabla-stats{font-size:10px}
+  .tabla-stats th:nth-child(2){width:32%}
 }
 </style>
 </head>
@@ -73,7 +85,7 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 <div class="header-top">
 <div class="logo-wrap">
 <img src="logo.png" class="logo-img" alt="Huastecos FC">
-<div class="title-block"><h1>HUASTECOS FC</h1><p>Temporada 2026</p></div>
+<div class="title-block"><h1>HUASTECOS FC</h1><p>Azul y oro • Temporada 2026</p></div>
 </div>
 <button class="btn btn-gold" style="padding:8px 12px;min-height:36px" onclick="openModal('addPlayer')">➕ Jugador</button>
 </div>
@@ -92,7 +104,7 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 <div id="view-tabla">
 <div class="help-box">💡 <b>Estadística:</b> Goles, asistencias, partidos jugados y tarjetas de cada jugador con su número y nombre completo.</div>
 <div class="card"><h3>Tabla de Goleo y Tarjetas</h3>
-<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr><th>#</th><th>Jugador</th><th>Pos</th><th>PJ</th><th>⚽</th><th>🎯</th><th>🟨</th><th>🟥</th></tr></thead><tbody id="tablaBody"></tbody></table></div>
+<div style="overflow:auto"><table class="tabla-stats"><thead><tr><th>#</th><th>Jugador</th><th>Pos</th><th>PJ</th><th>⚽</th><th>🎯</th><th>🟨</th><th>🟥</th></tr></thead><tbody id="tablaBody"></tbody></table></div>
 </div></div>
 
 <div id="view-jugadores" style="display:none">
@@ -108,7 +120,7 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 </div>
 
 <div id="view-pagos" style="display:none">
-<div class="help-box">💡 <b>Pago:</b> Toca <b>Registrar Pago</b> para anotar quién pagó. Cada pago cubre 4 domingos. Arriba ves cuántos jugadores ya pagaron. Toca la bolita para ver detalle. Desliza para ver todas las fechas.</div>
+<div class="help-box">💡 <b>Pago:</b> Toca <b>Registrar Pago</b> para anotar quién pagó. Cada pago cubre 4 domingos. Arriba ves cuántos jugadores ya pagaron.</div>
 <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
 <button class="btn btn-gold" onclick="openModal('addPago')">💰 Registrar Pago</button>
 <button class="btn btn-blue" onclick="openModal('addPlayer')">👥 Agregar Jugador</button>
@@ -119,7 +131,6 @@ body{font-family:'Inter',sans-serif;background:#070f24;color:#eaf1ff;min-height:
 <span style="font-size:9px;background:#0a1430;border:1px solid #1e3a7a;padding:4px 8px;border-radius:999px">🟢 Pagado • 🔴 Pendiente</span>
 </div>
 <div class="matrix-wrap" id="matrizWrap"></div>
-<div class="help-box" style="margin-top:10px">👆 Toca el nombre completo para ver sus números.</div>
 </div>
 <div class="card"><h3>Últimos pagos registrados</h3><div id="pagosList"></div></div>
 </div>
@@ -228,7 +239,7 @@ function openModal(type, data=null){
   }
   else if(type==='addMatch'){
     title.textContent='Nuevo Partido';
-    html=`<div class="help-box">💡 Registra el partido del domingo y después anota los goles de cada jugador.</div>
+    html=`<div class="help-box">💡 Registra el partido del domingo y después anota los goles.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
     <div class="form-group"><label>Fecha del domingo</label><input type="date" id="m_mFecha" value="2026-10-18"></div>
     <div class="form-group"><label>Rival</label><input id="m_mRival" placeholder="Halcones FC"></div>
@@ -257,7 +268,7 @@ function openModal(type, data=null){
   else if(type==='partidoStats'){
     const partido = partidos.find(p=>String(p.id)===String(data));
     title.textContent=`Anotar Goles - ${partido.fecha} vs ${partido.rival}`;
-    html=`<div class="help-box">💡 Marca si jugó y anota goles, asistencias y tarjetas. Cuadros pequeños y parejos.</div>
+    html=`<div class="help-box">💡 Marca PJ si jugó y anota goles, asistencias y tarjetas.</div>
     <div class="goles-header"><span># Jugador</span><span>PJ</span><span>⚽</span><span>🎯</span><span>🟨</span><span>🟥</span></div>`;
     jugadores.forEach(j=>{
       const act = (partido.actuaciones||[]).find(a=>String(a.jugadorId)===String(j.id)) || {jugado:0,goles:0,asist:0,amarillas:0,rojas:0};
@@ -271,8 +282,7 @@ function openModal(type, data=null){
         <input type="number" id="r_${j.id}" value="${act.rojas||0}" min="0" max="1" inputmode="numeric">
       </div>`;
     });
-    html+=`<button class="btn btn-gold" style="width:100%;margin-top:12px" onclick="guardarStatsPartido('${partido.id}')">💾 Guardar</button>
-    <div class="help-box" style="margin-top:8px">PJ = Partido Jugado. Márcalo si el jugador estuvo en el partido.</div>`;
+    html+=`<button class="btn btn-gold" style="width:100%;margin-top:12px" onclick="guardarStatsPartido('${partido.id}')">💾 Guardar</button>`;
   }
   else if(type==='jugadorStats'){
     const j=jugadores.find(x=>String(x.id)===String(data));
@@ -355,7 +365,7 @@ function renderPlayers(){
 }
 function renderTabla(){
   const datos = jugadores.map(j=>{const s=calcularStatsJugador(j.id); return {dorsal:j.dorsal,nombre:j.nombre,pos:j.pos,...s};}).sort((a,b)=>b.goles-a.goles);
-  document.getElementById('tablaBody').innerHTML=datos.map(s=>`<tr><td><span class="num-badge">#${s.dorsal}</span></td><td style="padding:8px;font-size:11px"><b>${s.nombre}</b></td><td><span class="pos-badge pos-${s.pos.split('-')[0]}">${s.pos.split('-')[0]}</span></td><td>${s.pj}</td><td style="font-weight:800;color:#4ade80">${s.goles}</td><td style="color:#60a5fa">${s.asist}</td><td style="color:#fbbf24">${s.amarillas}</td><td style="color:#f87171">${s.rojas}</td></tr>`).join('')||'<tr><td colspan=8 style="text-align:center;padding:20px;color:#8fb0f0">💡 Registra un partido y anota los goles</td></tr>';
+  document.getElementById('tablaBody').innerHTML=datos.map(s=>`<tr><td><span class="num-badge">#${s.dorsal}</span></td><td><b>${s.nombre}</b></td><td><span class="pos-badge pos-${s.pos.split('-')[0]}">${s.pos.split('-')[0]}</span></td><td>${s.pj}</td><td style="font-weight:800;color:#4ade80">${s.goles}</td><td style="color:#60a5fa">${s.asist}</td><td style="color:#fbbf24">${s.amarillas}</td><td style="color:#f87171">${s.rojas}</td></tr>`).join('')||'<tr><td colspan=8 style="text-align:center;padding:20px;color:#8fb0f0">💡 Registra un partido y anota los goles</td></tr>';
 }
 function switchTab(t){document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('active',e.dataset.tab===t));['tabla','jugadores','partidos','pagos'].forEach(id=>{document.getElementById('view-'+id).style.display=id===t?'block':'none';});}
 function renderAll(){renderBar();renderMatriz();renderPagos();renderMatches();renderPlayers();renderTabla();}
